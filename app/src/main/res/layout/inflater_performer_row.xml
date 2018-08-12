@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        app:strokeColor="@color/colorPrimaryDark"
+        app:strokeWidth="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/performer_row_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/performer_row_tv_points_label"
+                android:singleLine="true"
+                android:text="Jeeva"
+                android:textColor="@android:color/black"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/performer_row_tv_played_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/performer_row_tv_name"
+                android:layout_toLeftOf="@id/performer_row_tv_points_label"
+                android:singleLine="true"
+                android:text="Played 2 days ago"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/performer_row_tv_points_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Points"
+                android:textColor="@color/dimGray"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/performer_row_tv_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/performer_row_tv_points_label"
+                android:text="Points"
+                android:textColor="@android:color/black"
+                android:textSize="22dp" />
+
+        </RelativeLayout>
+
+    </android.support.design.card.MaterialCardView>
+</layout>

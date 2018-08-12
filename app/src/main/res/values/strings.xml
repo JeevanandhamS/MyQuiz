@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MyQuiz</string>
+
+    <!-- Strings related to login -->
+    <string name="error_name_required">Name is required</string>
+    <string name="error_name_size">Name should have minimum size of 4</string>
+    <string name="error_name_not_unique">Name already exists</string>
+    <string name="error_age_required">Age is required</string>
+    <string name="error_age_range">Age should be greater than 7</string>
+    <string name="error_gender_required">Gender is required</string>
+    <string name="user_created">User (%d) created successfully</string>
+
+    <!-- Gender -->
+    <string-array name="gender_items">
+        <item>Choose Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+</resources>
