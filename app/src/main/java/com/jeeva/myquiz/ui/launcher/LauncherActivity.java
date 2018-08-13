@@ -1,18 +1,23 @@
 package com.jeeva.myquiz.ui.launcher;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jeeva.myquiz.R;
+import com.jeeva.myquiz.data.dto.Question;
+import com.jeeva.myquiz.data.dto.QuestionList;
 import com.jeeva.myquiz.data.dto.User;
 import com.jeeva.myquiz.databinding.ActivityLauncherBinding;
 import com.jeeva.myquiz.ui.base.BaseActivity;
+import com.jeeva.myquiz.utils.AppUtils;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,6 +33,9 @@ public class LauncherActivity extends BaseActivity implements LauncherViewModel.
     private static final String TAG = LauncherActivity.class.getName();
 
     @Inject
+    Gson mGson;
+
+    @Inject
     LauncherViewModel mLauncherViewModel;
 
     private ActivityLauncherBinding mLauncherBinding;
@@ -37,6 +45,8 @@ public class LauncherActivity extends BaseActivity implements LauncherViewModel.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mLauncherViewModel.updateQuestionAvailability();
+
         this.mLauncherBinding = DataBindingUtil.setContentView(this, R.layout.activity_launcher);
 
         initViews();
@@ -96,6 +106,25 @@ public class LauncherActivity extends BaseActivity implements LauncherViewModel.
     }
 
     @Override
+    public void onGetNoOfQuestions(int noOfQuestions) {
+        Log.d(TAG, "No of Questions -> " + noOfQuestions);
+
+        if(noOfQuestions == 0) {
+            String questionsJson = AppUtils.readStringFromAsset(this,
+                    "questions_and_answers.json");
+
+            if(!TextUtils.isEmpty(questionsJson)) {
+                QuestionList allQuestionList = mGson.fromJson(questionsJson, QuestionList.class);
+
+                List<Question> questions = allQuestionList.getQuestions();
+                if (null != questions && questions.size() > 0) {
+                    mLauncherViewModel.addQuestions(questions);
+                }
+            }
+        }
+    }
+
+    @Override
     public void onUserNameEmpty() {
         mLauncherBinding.userInfoIlName.setErrorEnabled(true);
         mLauncherBinding.userInfoIlName.setError(getString(R.string.error_name_required));
@@ -138,12 +167,6 @@ public class LauncherActivity extends BaseActivity implements LauncherViewModel.
     }
 
     private void dismissKeyboard() {
-        View view = this.getCurrentFocus();
-        if (null != view) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        }
+        AppUtils.dismissKeyboard(this, this.getCurrentFocus());
     }
 }

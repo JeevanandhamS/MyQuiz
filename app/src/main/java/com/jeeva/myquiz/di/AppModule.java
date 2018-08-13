@@ -3,8 +3,11 @@ package com.jeeva.myquiz.di;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jeeva.myquiz.AppConstants;
 import com.jeeva.myquiz.MyQuizApplication;
+import com.jeeva.myquiz.data.dao.QuestionDao;
 import com.jeeva.myquiz.data.dao.UserDao;
 import com.jeeva.myquiz.data.db.MyQuizDatabase;
 
@@ -19,6 +22,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 @Module
 public class AppModule {
+
+    @Provides
+    @Singleton
+    QuestionDao provideQuestionDao(MyQuizDatabase myQuizDatabase) {
+        return myQuizDatabase.getQuestionDao();
+    }
 
     @Provides
     @Singleton
@@ -51,5 +60,11 @@ public class AppModule {
     @DatabaseInfo
     String provideDatabaseName() {
         return AppConstants.DB_NAME;
+    }
+
+    @Provides
+    @Singleton
+    Gson provideGson() {
+        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 }

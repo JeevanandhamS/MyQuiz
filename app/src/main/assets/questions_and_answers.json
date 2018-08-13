@@ -1,0 +1,94 @@
+{
+  "quizes": [
+    {
+      "question": "The first Buddhist Sangeeti (conference) was held at?",
+      "options": [
+        "Rajgriha",
+        "Pataliputra",
+        "Vaishali",
+        "Kashmir"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Permanent Settlement of Bengal was done by British Governor-General",
+      "options": [
+        "Lord Minto",
+        "Lord Wellesly",
+        "Lord Warren Hastings",
+        "Lord Cornwallis"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Which of the following Vedas was compiled first?",
+      "options": [
+        "Rigveda",
+        "Samaveda",
+        "Yajurveda",
+        "Atharvaveda"
+      ],
+      "answer": 4
+    },
+    {
+      "question": "Who is the only person to be honoured with both 'Bharat Ratna' and 'Nishan-e-Pakistan', the highest civilian awards of India and Pakistan respectively?",
+      "options": [
+        "Khan Abdul Gaffar Khan",
+        "Morarji Desai",
+        "Maulana Abul Kalam Azad",
+        "Mohammed Iqbal"
+      ],
+      "answer": 3
+    },
+    {
+      "question": "Balban's greatest achievement was?",
+      "options": [
+        "Rigveda",
+        "Samaveda",
+        "Yajurveda",
+        "Atharvaveda"
+      ],
+      "answer": 4
+    },
+    {
+      "question": "Who is the only person to be honoured with both 'Bharat Ratna' and 'Nishan-e-Pakistan', the highest civilian awards of India and Pakistan respectively?",
+      "options": [
+        "defence against the Mongols",
+        "curbing of the power of nobles",
+        "establishment of peace and security",
+        "suppression of revolts"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "First Jain Tirthankar was?",
+      "options": [
+        "Mahavir",
+        "Neminath",
+        "Parshavnath",
+        "Rishabh"
+      ],
+      "answer": 4
+    },
+    {
+      "question": "when was Swadeshi Movement was launched?",
+      "options": [
+        "1930",
+        "1905",
+        "1947",
+        "1857"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "n which session did Congress declared complete Independence (Poorna Swaraj) as its goal?",
+      "options": [
+        "Lahore session held in 1929",
+        "Madras session held in 1927",
+        "Ahmedabad session held in 1921",
+        "Gaya session held in 1922"
+      ],
+      "answer": 2
+    }
+  ]
+}

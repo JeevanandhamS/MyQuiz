@@ -4,7 +4,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.text.TextUtils;
 
+import com.jeeva.myquiz.data.dao.QuestionDao;
 import com.jeeva.myquiz.data.dao.UserDao;
+import com.jeeva.myquiz.data.dto.Question;
 import com.jeeva.myquiz.data.dto.User;
 
 import org.threeten.bp.OffsetDateTime;
@@ -25,15 +27,39 @@ public class LauncherViewModel extends ViewModel {
     private static final int TOP_PERFORMER_LIMIT = 5;
 
     @Inject
+    QuestionDao mQuestionDao;
+
+    @Inject
     UserDao mUserDao;
 
     @Inject
     OnUserInfoModelListener mUserInfoModelListener;
 
     @Inject
-    public LauncherViewModel(UserDao userDao, OnUserInfoModelListener userInfoModelListener) {
+    public LauncherViewModel(QuestionDao questionDao, UserDao userDao,
+                             OnUserInfoModelListener userInfoModelListener) {
+        this.mQuestionDao = questionDao;
         this.mUserDao = userDao;
         this.mUserInfoModelListener = userInfoModelListener;
+    }
+
+    public void updateQuestionAvailability() {
+        Observable
+                .fromCallable(() -> mQuestionDao.getNoOfQuestions())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        noOfQuestions -> mUserInfoModelListener.onGetNoOfQuestions(noOfQuestions)
+                );
+    }
+
+    public void addQuestions(List<Question> questions) {
+        Observable
+                .just(questions)
+                .doOnNext(questions1 -> mQuestionDao.addQuestions(questions1))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 
     public LiveData<List<User>> getTopPerformers() {
@@ -41,7 +67,7 @@ public class LauncherViewModel extends ViewModel {
     }
 
     public void addNewUser(final User user) {
-        if(!validateUserInfo(user)) {
+        if (!validateUserInfo(user)) {
             return;
         }
 
@@ -59,22 +85,22 @@ public class LauncherViewModel extends ViewModel {
     }
 
     private boolean validateUserInfo(User user) {
-        if(TextUtils.isEmpty(user.getName())) {
+        if (TextUtils.isEmpty(user.getName())) {
             mUserInfoModelListener.onUserNameEmpty();
             return false;
         }
 
-        if(user.getName().length() < 4) {
+        if (user.getName().length() < 4) {
             mUserInfoModelListener.onUserNameSmall();
             return false;
         }
 
-        if(user.getAge() < 7) {
+        if (user.getAge() < 7) {
             mUserInfoModelListener.onAgeSmall();
             return false;
         }
 
-        if(TextUtils.isEmpty(user.getGender())) {
+        if (TextUtils.isEmpty(user.getGender())) {
             mUserInfoModelListener.onGenderEmpty();
             return false;
         }
@@ -83,6 +109,8 @@ public class LauncherViewModel extends ViewModel {
     }
 
     public interface OnUserInfoModelListener {
+
+        void onGetNoOfQuestions(int noOfQuestions);
 
         void onUserNameEmpty();
 
