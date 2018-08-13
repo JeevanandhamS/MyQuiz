@@ -31,11 +31,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/performer_row_tv_name"
+                android:layout_marginTop="@dimen/input_layout_gap"
                 android:layout_toLeftOf="@id/performer_row_tv_points_label"
                 android:singleLine="true"
                 android:text="Played 2 days ago"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/performer_row_tv_points_label"

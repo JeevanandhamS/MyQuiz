@@ -10,6 +10,7 @@ import com.jeeva.myquiz.MyQuizApplication;
 import com.jeeva.myquiz.data.dao.QuestionDao;
 import com.jeeva.myquiz.data.dao.UserDao;
 import com.jeeva.myquiz.data.db.MyQuizDatabase;
+import com.jeeva.myquiz.ui.gameplay.PointsManager;
 
 import javax.inject.Singleton;
 
@@ -22,6 +23,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 @Module
 public class AppModule {
+
+    @Provides
+    @Singleton
+    PointsManager providePointsManager() {
+        return new PointsManager();
+    }
 
     @Provides
     @Singleton

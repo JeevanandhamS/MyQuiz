@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MyQuiz</string>
+    <string name="game_play">Play Game</string>
 
     <!-- Strings related to login -->
     <string name="error_name_required">Name is required</string>
@@ -8,7 +9,7 @@
     <string name="error_age_required">Age is required</string>
     <string name="error_age_range">Age should be greater than 7</string>
     <string name="error_gender_required">Gender is required</string>
-    <string name="user_created">User (%d) created successfully</string>
+    <string name="user_created">User created successfully</string>
 
     <!-- Gender -->
     <string-array name="gender_items">

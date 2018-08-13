@@ -1,21 +1,25 @@
 package com.jeeva.myquiz.ui.launcher;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.jeeva.myquiz.AppConstants;
 import com.jeeva.myquiz.R;
 import com.jeeva.myquiz.data.dto.Question;
 import com.jeeva.myquiz.data.dto.QuestionList;
 import com.jeeva.myquiz.data.dto.User;
 import com.jeeva.myquiz.databinding.ActivityLauncherBinding;
 import com.jeeva.myquiz.ui.base.BaseActivity;
+import com.jeeva.myquiz.ui.gameplay.GamePlayActivity;
 import com.jeeva.myquiz.utils.AppUtils;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -154,16 +158,24 @@ public class LauncherActivity extends BaseActivity implements LauncherViewModel.
     }
 
     @Override
-    public void onUserCreatedSuccess(long userId) {
-        showToastMessage(String.format(getString(R.string.user_created), userId));
+    public void onUserCreatedSuccess(User user) {
+        resetInputsFields();
+
+        showToastMessage(getString(R.string.user_created));
+
+        openGamePlay(user);
     }
 
-    private void showToastMessage(int msgResId) {
-        Toast.makeText(this, msgResId, Toast.LENGTH_SHORT).show();
+    private void openGamePlay(User user) {
+        Intent intent = new Intent(this, GamePlayActivity.class);
+        intent.putExtra(AppConstants.USER_DATA_KEY, Parcels.wrap(user));
+        startActivity(intent);
     }
 
-    private void showToastMessage(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    private void resetInputsFields() {
+        mLauncherBinding.userInfoEtName.setText("");
+        mLauncherBinding.userInfoEtAge.setText("");
+        mLauncherBinding.userInfoSpGender.setSelection(0);
     }
 
     private void dismissKeyboard() {

@@ -1,5 +1,7 @@
 package com.jeeva.myquiz.di;
 
+import com.jeeva.myquiz.ui.gameplay.GamePlayActivity;
+import com.jeeva.myquiz.ui.gameplay.GamePlayModule;
 import com.jeeva.myquiz.ui.launcher.LauncherActivity;
 import com.jeeva.myquiz.ui.launcher.LauncherModule;
 
@@ -14,4 +16,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = LauncherModule.class)
     abstract LauncherActivity bindLauncherActivity();
+
+    @ContributesAndroidInjector(modules = GamePlayModule.class)
+    abstract GamePlayActivity bindGamePlayActivity();
 }

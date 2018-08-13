@@ -44,7 +44,7 @@ public class TopPerformerAdapter extends RecyclerView.Adapter<TopPerformerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TopPerformerVH topPerformerVH, int position) {
-        topPerformerVH.bind(mUserList.get(position));
+        topPerformerVH.bind(mUserList.get(position), position + 1);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class TopPerformerAdapter extends RecyclerView.Adapter<TopPerformerAdapte
             this.mPerformerRowBinding = performerRowBinding;
         }
 
-        public void bind(User user) {
-            mPerformerRowBinding.performerRowTvName.setText(user.getName());
+        public void bind(User user, int rank) {
+            mPerformerRowBinding.performerRowTvName.setText(rank + ". " + user.getName());
             mPerformerRowBinding.performerRowTvPoints.setText(String.valueOf(user.getPoints()));
 
             OffsetDateTime createdTime = user.getCreatedTime();

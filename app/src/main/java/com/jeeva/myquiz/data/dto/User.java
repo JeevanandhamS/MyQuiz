@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.parceler.Parcel;
 import org.threeten.bp.OffsetDateTime;
 
 import static com.jeeva.myquiz.data.dto.User.FIELD_NAME;
@@ -13,6 +14,7 @@ import static com.jeeva.myquiz.data.dto.User.TABLE_NAME;
 /**
  * Created by Jeevanandham on 12/08/2018
  */
+@Parcel
 @Entity(tableName = TABLE_NAME, indices = {@Index(value = FIELD_NAME, unique = true)})
 public class User {
 
@@ -44,7 +46,7 @@ public class User {
     private String gender;
 
     @ColumnInfo(name = FIELD_POINTS)
-    private int points;
+    private int points = 0;
 
     @ColumnInfo(name = FIELD_CREATED_TIME)
     private OffsetDateTime createdTime;

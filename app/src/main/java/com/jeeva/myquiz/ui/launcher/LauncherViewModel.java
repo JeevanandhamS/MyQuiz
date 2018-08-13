@@ -75,11 +75,11 @@ public class LauncherViewModel extends ViewModel {
 
         Observable
                 .just(user)
-                .map(user1 -> mUserDao.addUser(user1))
+                .doOnNext(user1 -> user1.setId(mUserDao.addUser(user1)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        userId -> mUserInfoModelListener.onUserCreatedSuccess(userId),
+                        user1 -> mUserInfoModelListener.onUserCreatedSuccess(user1),
                         throwable -> mUserInfoModelListener.onUserNameNotUnique()
                 );
     }
@@ -122,6 +122,6 @@ public class LauncherViewModel extends ViewModel {
 
         void onUserNameNotUnique();
 
-        void onUserCreatedSuccess(long userId);
+        void onUserCreatedSuccess(User user);
     }
 }
