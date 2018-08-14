@@ -7,12 +7,15 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import static com.jeeva.myquiz.data.dto.Question.TABLE_NAME;
 
 /**
  * Created by Jeevanandham on 13/08/2018
  */
 @Entity(tableName = TABLE_NAME)
+@Parcel
 public class Question {
 
     public static final String TABLE_NAME = "QUESTION";
@@ -24,6 +27,9 @@ public class Question {
     public static final String FIELD_OPTIONS = "OPTIONS";
 
     public static final String FIELD_ANSWER = "ANSWER";
+
+    public Question() {
+    }
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = FIELD_ID)

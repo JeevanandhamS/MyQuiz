@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="input_layout_gap">10dp</dimen>
     <dimen name="action_layout_gap">15dp</dimen>
+    <dimen name="option_height">80dp</dimen>
 </resources>

@@ -51,21 +51,25 @@ public class GamePlayViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public void onQuestionAnswered(Question question, int userAnswer, int timeLeft) {
-        if(userAnswer == question.getAnswer()) {
+    public void onQuestionAnswered(int timeLeft, boolean answerRight) {
+        if (answerRight) {
             updateUserPoints(mPointsManager.calcCorrectAnswerPoints(timeLeft));
         } else {
             updateUserPoints(mPointsManager.calcWrongAnswerPoints());
         }
     }
 
-    public void onQuestionNotAnswered(Question question) {
+    public void onQuestionTimeOut() {
         updateUserPoints(mPointsManager.calcWrongAnswerPoints());
     }
 
     private void updateUserPoints(int points) {
-        int newPoints = mUser.getPoints() + points;
-        mUser.setPoints(newPoints);
-        Completable.fromAction(() -> mUserDao.updateUser(mUser));
+        mUser.setPoints(mUser.getPoints() + points);
+
+        Completable
+                .fromAction(() -> mUserDao.updateUser(mUser))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

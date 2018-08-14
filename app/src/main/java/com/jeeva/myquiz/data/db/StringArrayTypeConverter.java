@@ -3,6 +3,8 @@ package com.jeeva.myquiz.data.db;
 import android.arch.persistence.room.TypeConverter;
 import android.text.TextUtils;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by Jeevanandham on 13/08/2018
  */
@@ -16,7 +18,7 @@ public class StringArrayTypeConverter {
             return null;
         }
 
-        return value.split(SEPARATOR);
+        return value.split(Pattern.quote(SEPARATOR));
     }
 
     @TypeConverter

@@ -7,7 +7,9 @@ public final class AppConstants {
 
     public static final String DB_NAME = "my_quiz.db";
 
-    public static final String USER_DATA_KEY = "userDataKey";
+    public static final String USER_DATA_KEY = "userData";
+
+    public static final String QUESTION_DATA_KEY = "questionData";
 
     private AppConstants() {
     }

@@ -1,15 +1,20 @@
 package com.jeeva.myquiz.ui.launcher;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.jeeva.myquiz.AppConstants;
 import com.jeeva.myquiz.R;
 import com.jeeva.myquiz.data.dto.User;
 import com.jeeva.myquiz.databinding.InflaterPerformerRowBinding;
+import com.jeeva.myquiz.ui.gameplay.GamePlayActivity;
 
+import org.parceler.Parcels;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -72,6 +77,17 @@ public class TopPerformerAdapter extends RecyclerView.Adapter<TopPerformerAdapte
             } else {
                 mPerformerRowBinding.performerRowTvPlayedTime.setText("-");
             }
+
+            // For testing
+            /*this.mPerformerRowBinding.getRoot().setOnClickListener(
+                    view -> openGamePlay(view.getContext(), user)
+            );*/
+        }
+
+        private void openGamePlay(Context context, User user) {
+            Intent intent = new Intent(context, GamePlayActivity.class);
+            intent.putExtra(AppConstants.USER_DATA_KEY, Parcels.wrap(user));
+            context.startActivity(intent);
         }
     }
 }
