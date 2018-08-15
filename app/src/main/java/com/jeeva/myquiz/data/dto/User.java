@@ -51,6 +51,16 @@ public class User {
     @ColumnInfo(name = FIELD_CREATED_TIME)
     private OffsetDateTime createdTime;
 
+    public User() {
+    }
+
+    public User(String name, int age, String gender, OffsetDateTime createdTime) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.createdTime = createdTime;
+    }
+
     public long getId() {
         return id;
     }
