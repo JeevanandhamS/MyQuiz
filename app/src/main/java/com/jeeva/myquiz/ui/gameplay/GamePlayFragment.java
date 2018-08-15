@@ -136,7 +136,15 @@ public class GamePlayFragment extends Fragment implements View.OnClickListener {
         mTimerAnimator.start();
     }
 
+    private void stopTimer() {
+        if(mTimerAnimator.isRunning()) {
+            mTimerAnimator.cancel();
+        }
+    }
+
     private void onTimerStopped() {
+        mGamePlayBinding.gamePlayViewClickDisable.setVisibility(View.VISIBLE);
+
         mGamePlayBinding.gamePlayPbTimer.postDelayed(() -> {
             int timeLeft = mGamePlayBinding.gamePlayPbTimer.getProgress();
             if(timeLeft > 0) {
@@ -144,12 +152,12 @@ public class GamePlayFragment extends Fragment implements View.OnClickListener {
             } else {
                 mGamePlayListener.onTimeOut();
             }
-        }, 2000L);
+        }, 1000L);
     }
 
     @Override
     public void onClick(View view) {
-        mTimerAnimator.cancel();
+        stopTimer();
 
         if (view == mBtnRightOption) {
             mAnswerRight = true;

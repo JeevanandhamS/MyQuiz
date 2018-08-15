@@ -23,6 +23,9 @@ public interface UserDao {
     @Update(onConflict = OnConflictStrategy.FAIL)
     void updateUser(User user);
 
-    @Query("SELECT * FROM " + User.TABLE_NAME + " ORDER BY " + User.FIELD_POINTS + " DESC Limit " + ":userLimit")
+    @Query("SELECT * FROM " + User.TABLE_NAME + " WHERE " + User.FIELD_POINTS + " > 0 ORDER BY " + User.FIELD_POINTS + " DESC Limit " + ":userLimit")
     LiveData<List<User>> getTopPerformers(int userLimit);
+
+    @Query("SELECT " + User.FIELD_POINTS + " FROM " + User.TABLE_NAME + " WHERE " + User.FIELD_ID + " =:userId LIMIT 1")
+    LiveData<Integer> getUserPoints(long userId);
 }

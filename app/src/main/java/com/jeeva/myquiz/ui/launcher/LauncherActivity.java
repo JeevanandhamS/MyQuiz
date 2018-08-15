@@ -3,6 +3,7 @@ package com.jeeva.myquiz.ui.launcher;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -130,20 +131,17 @@ public class LauncherActivity extends BaseActivity implements LauncherViewModel.
 
     @Override
     public void onUserNameEmpty() {
-        mLauncherBinding.userInfoIlName.setErrorEnabled(true);
-        mLauncherBinding.userInfoIlName.setError(getString(R.string.error_name_required));
+        setInputLayoutError(mLauncherBinding.userInfoIlName, R.string.error_name_required);
     }
 
     @Override
     public void onUserNameSmall() {
-        mLauncherBinding.userInfoIlName.setErrorEnabled(true);
-        mLauncherBinding.userInfoIlName.setError(getString(R.string.error_name_size));
+        setInputLayoutError(mLauncherBinding.userInfoIlName, R.string.error_name_size);
     }
 
     @Override
     public void onAgeSmall() {
-        mLauncherBinding.userInfoIlAge.setErrorEnabled(true);
-        mLauncherBinding.userInfoIlAge.setError(getString(R.string.error_age_range));
+        setInputLayoutError(mLauncherBinding.userInfoIlAge, R.string.error_age_range);
     }
 
     @Override
@@ -153,8 +151,7 @@ public class LauncherActivity extends BaseActivity implements LauncherViewModel.
 
     @Override
     public void onUserNameNotUnique() {
-        mLauncherBinding.userInfoIlName.setErrorEnabled(true);
-        mLauncherBinding.userInfoIlName.setError(getString(R.string.error_name_not_unique));
+        setInputLayoutError(mLauncherBinding.userInfoIlName, R.string.error_name_not_unique);
     }
 
     @Override
@@ -164,6 +161,12 @@ public class LauncherActivity extends BaseActivity implements LauncherViewModel.
         showToastMessage(getString(R.string.user_created));
 
         openGamePlay(user);
+    }
+
+    private void setInputLayoutError(TextInputLayout textInputLayout, int errorMsgRes) {
+        textInputLayout.setErrorEnabled(true);
+        textInputLayout.setError(getString(errorMsgRes));
+        textInputLayout.requestFocus();
     }
 
     private void openGamePlay(User user) {

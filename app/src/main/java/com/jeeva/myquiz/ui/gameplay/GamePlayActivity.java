@@ -1,11 +1,14 @@
 package com.jeeva.myquiz.ui.gameplay;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.jeeva.myquiz.R;
+import com.jeeva.myquiz.data.dto.User;
 import com.jeeva.myquiz.databinding.ActivityGamePlayBinding;
 import com.jeeva.myquiz.ui.base.BaseActivity;
 import com.jeeva.myquiz.ui.launcher.LauncherActivity;
@@ -37,16 +40,19 @@ public class GamePlayActivity extends BaseActivity implements GamePlayFragment.O
         super.onCreate(savedInstanceState);
         this.mGamePlayBinding = DataBindingUtil.setContentView(this, R.layout.activity_game_play);
 
-        initViews();
+        fetchUserPoints();
 
-        fetchQuestions();
+        fetchUserQuestions();
     }
 
-    private void initViews() {
-
+    private void fetchUserPoints() {
+        mGamePlayViewModel.getLiveUserPoints().observe(this,
+                userPoints -> mGamePlayBinding.gamePlayTvPoints
+                        .setText(String.format("Points : %d", userPoints))
+        );
     }
 
-    private void fetchQuestions() {
+    private void fetchUserQuestions() {
         mGamePlayViewModel.getRandomQuestions()
                 .subscribe(questions -> {
                     Log.d(TAG, "Random Questions --> " + questions.toString());
@@ -62,8 +68,8 @@ public class GamePlayActivity extends BaseActivity implements GamePlayFragment.O
     }
 
     private void loadNextQuestion() {
-        if(mQuestionStack.empty()) {
-            goToLauncher();
+        if (mQuestionStack.empty()) {
+            showFinalPoints();
             return;
         }
 
@@ -72,6 +78,22 @@ public class GamePlayActivity extends BaseActivity implements GamePlayFragment.O
                 .beginTransaction()
                 .replace(R.id.game_play_fl_frame, GamePlayFragment.newInstance(playQuestion))
                 .commitAllowingStateLoss();
+    }
+
+    private void showFinalPoints() {
+        User user = mGamePlayViewModel.getUserInfo();
+        new AlertDialog.Builder(this)
+                .setTitle("Result")
+                .setMessage(String.format("%s, you have scored %d points", user.getName(), user.getPoints()))
+                .setPositiveButton("Go To Home", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        goToLauncher();
+                    }
+                })
+                .setCancelable(false)
+                .create()
+                .show();
     }
 
     private void goToLauncher() {
@@ -90,5 +112,10 @@ public class GamePlayActivity extends BaseActivity implements GamePlayFragment.O
     public void onTimeOut() {
         mGamePlayViewModel.onQuestionTimeOut();
         loadNextQuestion();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
     }
 }

@@ -1,5 +1,6 @@
 package com.jeeva.myquiz.ui.gameplay;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.jeeva.myquiz.data.dao.QuestionDao;
@@ -42,6 +43,14 @@ public class GamePlayViewModel extends ViewModel {
         this.mQuestionDao = questionDao;
         this.mUserDao = userDao;
         this.mPointsManager = pointsManager;
+    }
+
+    public LiveData<Integer> getLiveUserPoints() {
+        return mUserDao.getUserPoints(mUser.getId());
+    }
+
+    public User getUserInfo() {
+        return mUser;
     }
 
     public Observable<List<Question>> getRandomQuestions() {
